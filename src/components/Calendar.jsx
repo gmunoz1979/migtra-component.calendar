@@ -165,6 +165,12 @@ class Calendar extends Component {
      */
     const year_month = date.format('YYYY-MM');
 
+    /**
+     * Función que devuelve el valor
+     * del mes con 2 digitos.
+     */
+    const _day = value => (value <= 9 ? '0' : '') + value;
+
     let rows  = [];
     let cells = [];
 
@@ -189,7 +195,7 @@ class Calendar extends Component {
       */
       cells.push(<Cell
         className={isOffset ? 'offset-day' : (cur_date === day ? 'current' : '')}
-        date={`${year_month}-${day}`}
+        date={`${year_month}-${_day(day)}`}
         onClick={handlerChange}
         text={day}
         type='dialy'
