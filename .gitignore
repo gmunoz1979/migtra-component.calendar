@@ -1,4 +1,9 @@
 *.log
 
+*.woff
+*.woff2
+*.eot
+*.ttf
+
 node_modules/
 www/
