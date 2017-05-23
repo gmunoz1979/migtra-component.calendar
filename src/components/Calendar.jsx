@@ -57,6 +57,9 @@ class Calendar extends Component {
   }
 
   handlerChange(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
     const button = e.currentTarget;
     const date = moment(button.dataset.date);
 
