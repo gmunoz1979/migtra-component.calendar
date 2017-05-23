@@ -2,7 +2,7 @@
   "name": "migtra-component.calendar",
   "version": "0.0.1",
   "description": "Migtra component Calendar",
-  "main": "index.js",
+  "main": "dist/js/migtra-component.calendar.js",
   "directories": {
     "test": "test"
   },
