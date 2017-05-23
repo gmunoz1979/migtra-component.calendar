@@ -67,7 +67,7 @@ const externals = [];
 
 if (ISPRODUCTION) {
   output.library = 'migtra-component.calendar';
-  output.libraryTarget = 'commonjs2';
+  output.libraryTarget = 'amd';
 
   externals.push({
     react: {
@@ -87,10 +87,7 @@ if (ISPRODUCTION) {
       umd: 'react-dom',
     }});
 
-  externals.push({ 'react': 'React' });
-  externals.push({ 'react-dom': 'ReactDOM' });
-
-  externals.push({ 'moment': true });
+  externals.push({ 'moment': 'moment' });
 }
 
 
