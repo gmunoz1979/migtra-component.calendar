@@ -12,3 +12,5 @@ export default {
   Cell,
   components
 };
+
+import './sass/default.scss';
