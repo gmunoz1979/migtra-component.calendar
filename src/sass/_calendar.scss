@@ -93,10 +93,6 @@
             outline:0;
           }
 
-          &:hover {
-            font-weight: bold;
-          }
-
           &:after {
             align-items: center;
             content: attr(data-text);
@@ -120,6 +116,12 @@
 
           button {
             padding: 0 5px;
+          }
+        }
+
+        &:not(.offset-day) {
+          button:hover {
+            font-weight: bold;
           }
         }
 
