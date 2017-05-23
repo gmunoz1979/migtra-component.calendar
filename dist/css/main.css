@@ -1,4 +1,4 @@
-@font-face {
+@import url(https://fonts.googleapis.com/css?family=Roboto);@font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
@@ -27,3 +27,94 @@
   -moz-osx-font-smoothing: grayscale;
   /* Support for IE. */
   font-feature-settings: 'liga'; }
+.calendar {
+  font-family: 'Roboto', sans-serif;
+  background-color: white;
+  border: 1px solid #b4b4b4; }
+  .calendar button:focus {
+    outline: 0; }
+  .calendar button::-moz-focus-inner {
+    border: 0;
+    outline: 0; }
+  .calendar header {
+    background-color: #ef6759;
+    color: white;
+    height: 50px;
+    line-height: 50px;
+    position: relative; }
+    .calendar header h2 {
+      background-color: transparent;
+      font-size: 22px;
+      font-weight: normal;
+      margin: 0 auto;
+      text-align: center;
+      text-transform: capitalize; }
+    .calendar header button {
+      background-color: transparent;
+      border: none;
+      color: white;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      margin: 0;
+      padding: 0;
+      outline: none; }
+      .calendar header button:hover {
+        font-weight: bold; }
+      .calendar header button[data-button='left'] {
+        left: 0;
+        transform: translate(5px, 7px); }
+      .calendar header button[data-button='right'] {
+        right: 0;
+        transform: translate(-5px, 7px); }
+      .calendar header button i.material-icons {
+        display: block;
+        padding: 0;
+        font-size: 36px; }
+  .calendar table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 10px;
+    margin: 5px;
+    table-layout: fixed;
+    width: calc(100% - 10px); }
+    .calendar table thead tr td {
+      color: #ef6759;
+      font-weight: bold;
+      text-transform: capitalize; }
+    .calendar table tr td {
+      position: relative;
+      text-align: center;
+      vertical-align: middle; }
+      .calendar table tr td button {
+        background-color: transparent;
+        border: none;
+        color: #787878;
+        cursor: pointer;
+        font-size: 10px;
+        margin: 0;
+        position: relative;
+        text-transform: capitalize; }
+        .calendar table tr td button:after {
+          align-items: center;
+          content: attr(data-text);
+          display: flex;
+          height: 25px;
+          justify-content: center;
+          min-width: 25px; }
+      .calendar table tr td[data-type="dialy"] {
+        width: calc((100% - 10px) / 7); }
+        .calendar table tr td[data-type="dialy"] button {
+          padding: 0; }
+      .calendar table tr td[data-type="monthly"] {
+        width: calc((100% - 10px) / 3); }
+        .calendar table tr td[data-type="monthly"] button {
+          padding: 0 5px; }
+      .calendar table tr td:not(.offset-day) button:hover {
+        font-weight: bold; }
+      .calendar table tr td.offset-day button {
+        color: #b4b4b4; }
+      .calendar table tr td.current button {
+        color: white;
+        background-color: #ef6759;
+        border-radius: 13px; }
