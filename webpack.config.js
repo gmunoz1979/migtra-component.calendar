@@ -109,7 +109,10 @@ const config = {
   },
   plugins: plugins,
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
+    alias: {
+      'material-icons': 'material-design-icons/iconfont/material-icons.css'
+    }
   }
 };
 
