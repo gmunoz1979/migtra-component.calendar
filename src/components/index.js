@@ -1,10 +1,11 @@
+import Button from './Button';
 import Calendar from './Calendar';
 import Cell from './Cell';
 
-export {default as Calendar} from './Calendar';
-export {default as Cell} from './Cell';
+export {Button, Calendar, Cell};
 
 export default {
+  Button,
   Calendar,
   Cell,
 };

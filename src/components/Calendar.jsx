@@ -1,25 +1,34 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import Cell from './Cell';
-
 import moment from 'moment';
-moment.locale('es');
-import 'material-design-icons/iconfont/material-icons.css';
+import {Button, Cell} from '../components';
 
 class Calendar extends Component {
 
   state = {
-    currentDate: moment(),
+    date: moment(),
   }
 
   static propTypes = {
+    date: PropTypes.any,
     firstDayOfWeek: PropTypes.number.isRequired,
+    onChange: PropTypes.func,
     type: PropTypes.string,
   }
 
   static defaultProps = {
+    date: moment(),
     firstDayOfWeek: 1,
+    onChange: () => {},
     type: 'dialy',
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      date: props.date
+    };
   }
 
   componentDidMount() {
@@ -49,23 +58,25 @@ class Calendar extends Component {
 
   handlerChange(e) {
     const button = e.currentTarget;
-    const date = button.dataset.date;
+    const date = moment(button.dataset.date);
 
-    this.setState({currentDate: moment(date)});
+    this.setState({date: date});
+
+    this.props.onChange(date);
   }
 
-  getBodyMonthly(currentDate) {
+  getBodyMonthly(date) {
     const handlerChange = e => this.handlerChange.call(this, e);
 
     /**
      * Recuperamos el mes actual
      */
-    const currentMonth = currentDate.month();
+    const currentMonth = date.month();
 
     /**
      * Recuperamos el año actual
      */
-    const year = currentDate.format('YYYY');
+    const year = date.format('YYYY');
 
     /**
      * Obtenemos el listado de meses
@@ -85,8 +96,6 @@ class Calendar extends Component {
     const rows  = [];
     let   cells = [];
     months.forEach((m, i) => {
-
-
       cells.push(<Cell
         className={currentMonth === i ? 'current' : ''}
         type='monthly'
@@ -107,12 +116,12 @@ class Calendar extends Component {
     return rows;
   }
 
-  getBodyDialy(currentDate) {
+  getBodyDialy(date) {
     /**
      * Recuperamos la fecha al inicio
      * del mes.
      */
-    const firstDay = moment(currentDate).startOf('month');
+    const firstDay = moment(date).startOf('month');
 
     /**
      * Despues vemos en que dia de la semana
@@ -124,7 +133,7 @@ class Calendar extends Component {
      * Ahora vemos cuantos días contiene
      * el mes.
      */
-    const daysInMonth = currentDate.daysInMonth();
+    const daysInMonth = date.daysInMonth();
 
     /**
      * En ingles el mes en el calendario comienza con
@@ -142,19 +151,19 @@ class Calendar extends Component {
 
     /**
      * Nos posicionamos el primer día visible del
-     * calendarioy creamos una copia.
+     * calendario y creamos una copia.
      */
-    const date = moment(firstDay.add(firstDayOffset - 1, 'days'));
+    const _d = moment(firstDay.add(firstDayOffset - 1, 'days'));
 
     /**
      * Obtener el día actual
      */
-    const cur_date = currentDate.date();
+    const cur_date = date.date();
 
     /**
      * Guardamos año/mes
      */
-    const year_month = currentDate.format('YYYY-MM');
+    const year_month = date.format('YYYY-MM');
 
     let rows  = [];
     let cells = [];
@@ -165,7 +174,7 @@ class Calendar extends Component {
      */
     for (let d=1; d<=totalDays; d++) {
       const isOffset = firstDayOffset -1 + d <= 0 || firstDayOffset - 1 + d > daysInMonth;
-      const day = date.date();
+      const day = _d.date();
 
       /**
        * Construimos la celda con el día. Sólo los días
@@ -199,7 +208,7 @@ class Calendar extends Component {
       /**
        * Avanzamos al siguiente día
        */
-      date.add(1, 'days');
+      _d.add(1, 'days');
     }
 
     return rows;
@@ -207,34 +216,29 @@ class Calendar extends Component {
 
   render () {
     const type = this.props.type;
-    const currentDate = this.state.currentDate;
+    const date = this.state.date;
 
     const header = this.getHeader(type);
-    const body   = type === 'monthly' ? this.getBodyMonthly(currentDate)
-                                      : this.getBodyDialy(currentDate);
-
-    const preview = moment(currentDate).subtract(1, (type === 'daily' ? 'months' : 'years'));
-    const next    = moment(currentDate).add(1,      (type === 'daily' ? 'months' : 'years'));
+    const body   = type === 'monthly' ? this.getBodyMonthly(date)
+                                      : this.getBodyDialy(date);
 
     const handlerChange = e => this.handlerChange.call(this, e);
 
     return <div className='calendar' ref={c => this.container = c}>
       <header>
-        <button
-          data-button='left'
-          data-type={type}
-          data-date={preview.format('YYYY-MM-DD')}
-          onClick={handlerChange}>
-          <i className='material-icons'>keyboard_arrow_left</i>
-        </button>
-        <h2>{currentDate.format(type === 'monthly' ? 'YYYY' : 'MMMM YYYY')}</h2>
-        <button
-          data-button='right'
-          data-type={type}
-          data-date={next.format('YYYY-MM-DD')}
-          onClick={handlerChange}>
-          <i className='material-icons'>keyboard_arrow_right</i>
-        </button>
+        <Button
+          action='left'
+          date={date}
+          onClick={handlerChange}
+          type={type}
+        />
+        <h2>{date.format(type === 'monthly' ? 'YYYY' : 'MMMM YYYY')}</h2>
+        <Button
+          action='right'
+          date={date}
+          onClick={handlerChange}
+          type={type}
+        />
       </header>
       <table>
         <thead>{header}</thead>
