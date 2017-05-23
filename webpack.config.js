@@ -49,7 +49,7 @@ ISPRODUCTION &&
     },
   }));
 
-const file_entry  = ISPRODUCTION ? 'src/js/index.js' : 'test/index.jsx';
+const file_entry  = ISPRODUCTION ? 'src/index.js' : 'test/index.jsx';
 const path_output = ISPRODUCTION ? './dist' : './www';
 
 const entry = [];
@@ -63,15 +63,42 @@ const output = {
   sourceMapFilename: '[file].map',
 };
 
+const externals = [];
+
 if (ISPRODUCTION) {
   output.library = 'migtra-component.calendar';
   output.libraryTarget = 'commonjs2';
+
+  externals.push({
+    react: {
+      root: 'React',
+      commonjs2: 'react',
+      commonjs: 'react',
+      amd: 'react',
+      umd: 'react',
+    }});
+
+  externals.push({
+    'react-dom': {
+      root: 'ReactDOM',
+      commonjs2: 'react-dom',
+      commonjs: 'react-dom',
+      amd: 'react-dom',
+      umd: 'react-dom',
+    }});
+
+  externals.push({ 'react': 'React' });
+  externals.push({ 'react-dom': 'ReactDOM' });
+
+  externals.push({ 'moment': true });
 }
+
 
 const config = {
   entry: entry,
   output: output,
   devtool: ISPRODUCTION ? 'eval' : 'source-map',
+  externals: externals,
   module: {
     rules: [
       {
