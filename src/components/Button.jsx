@@ -13,7 +13,7 @@ class Button extends Component {
 
   render() {
     const {action, date, type, onClick} = this.props;
-    const _newDate = action === 'preview' ?
+    const _newDate = action === 'left' ?
       moment(date).subtract(1, (type === 'daily' ? 'months' : 'years')) :
       moment(date).add(1,      (type === 'daily' ? 'months' : 'years'));
 
