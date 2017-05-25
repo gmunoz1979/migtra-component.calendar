@@ -53,7 +53,7 @@ class Calendar extends Component {
     weekdays.push(weekdays.shift());
 
     return <tr>{weekdays.map(d => d.replace(/\./, ''))
-      .map(d => <td>{d}</td>)}</tr>;
+      .map((d, i) => <td key={i}>{d}</td>)}</tr>;
   }
 
   handlerChange(e) {
@@ -100,6 +100,7 @@ class Calendar extends Component {
     let   cells = [];
     months.forEach((m, i) => {
       cells.push(<Cell
+        key={i}
         className={currentMonth === i ? 'current' : ''}
         type='monthly'
         text={m}
@@ -108,7 +109,7 @@ class Calendar extends Component {
       />);
 
       if (i !== 0 && (i+1) % 3 == 0) {
-        rows.push(<tr>{cells}</tr>);
+        rows.push(<tr key={i}>{cells}</tr>);
         cells = [];
       }
     });
@@ -197,6 +198,7 @@ class Calendar extends Component {
       * También pintamos diferente el día actual.
       */
       cells.push(<Cell
+        key={d}
         className={isOffset ? 'offset-day' : (cur_date === day ? 'current' : '')}
         date={`${year_month}-${_day(day)}`}
         onClick={handlerChange}
@@ -210,7 +212,7 @@ class Calendar extends Component {
        * el número de días.
        */
       if ((d !== 0 && d % 7 === 0) || d === totalDays) {
-        rows.push(<tr>{cells}</tr>);
+        rows.push(<tr key={d}>{cells}</tr>);
         cells = [];
       }
 
