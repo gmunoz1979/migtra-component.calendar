@@ -29,8 +29,7 @@
   font-feature-settings: 'liga'; }
 .calendar {
   font-family: 'Roboto', sans-serif;
-  background-color: white;
-  border: 1px solid #b4b4b4; }
+  background-color: white; }
   .calendar button:focus {
     outline: 0; }
   .calendar button::-moz-focus-inner {
@@ -44,7 +43,7 @@
     position: relative; }
     .calendar header h2 {
       background-color: transparent;
-      font-size: 22px;
+      font-size: 18px;
       font-weight: normal;
       margin: 0 auto;
       text-align: center;
@@ -115,6 +114,17 @@
       .calendar table tr td.offset-day button {
         color: #b4b4b4; }
       .calendar table tr td.current button {
+        border-radius: 13px;
         color: white;
         background-color: #ef6759;
-        border-radius: 13px; }
+        animation: select 1s; }
+
+@keyframes select {
+  0% {
+    color: #b4b4b4;
+    background-color: transparent; }
+  50% {
+    color: white; }
+  100% {
+    color: white;
+    background-color: #ef6759; } }

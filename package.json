@@ -1,6 +1,6 @@
 {
   "name": "migtra-component.calendar",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Migtra component Calendar",
   "main": "dist/js/migtra-component.calendar.js",
   "directories": {
